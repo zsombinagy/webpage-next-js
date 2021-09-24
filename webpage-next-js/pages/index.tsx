@@ -18,16 +18,17 @@ const Home: NextPage = () => {
       <div className={styles.main}>
       <div className={styles.main_left}>
         <h1>Welcome <br /><span>Dark</span></h1>
+        <p className={styles.text}>We work on amazing</p>
         <button className={styles.sign_up}>Sign Up</button>
 
 
       </div>
       <div className={styles.main_right}>
         <h1>To The <br />Side</h1>
+        <p className={styles.text}> projects for the world</p>
         <button className={styles.log_in}>Log In</button>
       </div>
       </div>
-      <p className={styles.text}>We work on amazing <span>projects for the world</span></p>
 
     </div>
     
