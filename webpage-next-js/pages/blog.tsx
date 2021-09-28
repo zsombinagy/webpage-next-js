@@ -19,8 +19,8 @@ const blog: NextPage = () => {
                     </div>
                     <div className={styles.author}>
                         <img src="/profile.png" alt="profile" />
-                        <h4>@zsombornagy</h4>
                     </div>
+                    <h4>@zsombornagy</h4>
                     <div className={styles.text}>
                         <p className={styles.paragraph}>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!
