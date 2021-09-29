@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import styles from '../styles/blog.module.sass'
+import Link from 'next/link'
 
 const blog: NextPage = () => {
     return (
@@ -8,10 +9,11 @@ const blog: NextPage = () => {
                 <div className={styles.navbar}>
                     <img src="/logo.png" alt="logo" />
                     <div className={styles.button}>
-                        <h1>Blog</h1>
-                        <h1>Forums</h1>
-                        <h1>Sign in</h1>
-                    </div>
+                        <Link href="/"><a>Blog</a></Link>
+                        <Link href="/"><a>Forums</a></Link>
+                        <Link href="/"><a>Sign in</a></Link>
+
+                     </div>
                 </div>
                 <div className={styles.main}>
                     <div className={styles.blog_title}>
