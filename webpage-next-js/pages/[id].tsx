@@ -10,14 +10,14 @@ const blog: NextPage = () => {
                     <img src="/logo.png" alt="logo" />
                     <div className={styles.button}>
                         <Link href="/"><a>Blog</a></Link>
-                        <Link href="/"><a>Forums</a></Link>
+                        <Link href="/write"><a>write</a></Link>
                         <Link href="/"><a>Sign in</a></Link>
 
                      </div>
                 </div>
                 <div className={styles.main}>
                     <div className={styles.blog_title}>
-                        <h1>Blog Title #1</h1>
+                        <h1>Blog Title </h1>
                     </div>
                     <div className={styles.author}>
                         <img src="/profile.png" alt="profile" />

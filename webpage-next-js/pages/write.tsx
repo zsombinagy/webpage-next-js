@@ -1,8 +1,8 @@
 import { NextPage } from "next";
-import styles from '../styles/newblog.module.sass'
+import styles from '../styles/write.module.sass'
 import Link from "next/link";
 
-const NewBlog: NextPage = () => {
+const Write: NextPage = () => {
 
     return (
         <div className={styles.page}>
@@ -31,4 +31,4 @@ const NewBlog: NextPage = () => {
 
 }
 
-export default NewBlog
+export default Write
