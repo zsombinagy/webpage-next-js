@@ -2,41 +2,43 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.sass'
-import { useState } from "react"
 import Link from "next/link"
-
-export const Blogs = [
-  {
-    id: 1,
-    name: "Blog Title 1",
-    author: "@zsombornagy",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!"
-  },
-  {
-    id: 2,
-    name: "Blog Title 2",
-    author: "@zsombornagy",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!"
-  },
-  {
-    id: 3,
-    name: "Blog Title 3",
-    author: "@zsombornagy",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste! Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!"
-  },
-
-]
+import { run } from "ar-gql";
 
 
-const Home: NextPage = () => {
+
+export const getStaticProps = async () => {
+  const data = await run(
+  `  query {
+      transactions(tags: { name: "App-Name", values: "first-project" }) {
+        edges {
+          node {
+            id
+            tags {
+              name
+              value
+            }
+          }
+        }
+      }
+    }`
+);
+
+
+return {
+  props: {blogs: data.data.transactions.edges}
+}
+}
+
+
+const Home: NextPage = ({blogs}) => {
   
-  const handleSubmit = async (e: MouseEvent) =>{
-    
 
-  }
-  
+
   return (
+  
     <>
+    {console.log(blogs)}
     <div className={styles.page}>
       <div className={styles.navbar}>
           <img src="/logo.png" alt="logo" />
@@ -62,64 +64,15 @@ const Home: NextPage = () => {
           </div>
       </div>
       <div className={styles.blogs}>
-        <div className={styles.blog_1}>
-          <div className={styles.blog_title}>
-            <h1>Blog Title #1</h1>
+        {blogs.map(blog => (
+          <div key={blog.id} className={styles.blog}>
+            <div className={styles.blog_title}>{blog.id}</div>
           </div>
-          <div className={styles.text}>
-            <p className={styles.paragraph}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              <span onSubmit={handleSubmit}>
-              Read More...
-              </span>
-            </p>
-            
-            
-          </div>
-        </div>
+
+        ))}
       </div>
 
 
-      <div className={styles.blogs}>
-        <div className={styles.blog_1}>
-          <div className={styles.blog_title}>
-            <h1>Blog Title #2</h1>
-          </div>
-          <div className={styles.text}>
-            <p className={styles.paragraph}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              <span >
-              Read More...
-              </span>
-              </p>
-            
-          </div>
-        </div>
-      </div>
-      <div className={styles.blogs}>
-        <div className={styles.blog_1}>
-          <div className={styles.blog_title}>
-            <h1>Blog Title #3</h1>
-          </div>
-          <div className={styles.text}>
-            <p className={styles.paragraph}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, ipsa sequi architecto, fugiat quas id dignissimos iste illum mollitia voluptas consequuntur, excepturi quia facilis aliquid unde obcaecati! Dolorem, eveniet iste!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              <span >
-              Read More...
-              </span>
-              </p>
-              
-
-            
-          </div>
-        </div>
-      </div>
 
     </div>
     

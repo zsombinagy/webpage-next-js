@@ -41,7 +41,6 @@ const Write: NextPage = () => {
         transaction.addTag('App-Name', 'first-project');
         transaction.addTag('Blog-name', title);
         transaction.addTag('Blog-username', author);
-        transaction.addTag('Blog-blog-content', body);
 
         await post.transactions.sign(transaction);
         let uploader = await post.transactions.getUploader(transaction);
