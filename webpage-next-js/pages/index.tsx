@@ -5,6 +5,11 @@ import styles from '../styles/Home.module.sass'
 import Link from "next/link"
 import { run } from "ar-gql";
 
+const getTagsValue = (name: string, tags ) => {
+  return tags.find(tag => tag.name === name).value
+  
+}
+
 
 
 export const getStaticProps = async () => {
@@ -38,7 +43,8 @@ const Home: NextPage = ({blogs}) => {
   return (
   
     <>
-    {console.log(blogs)}
+    
+    
     <div className={styles.page}>
       <div className={styles.navbar}>
           <img src="/logo.png" alt="logo" />
@@ -64,9 +70,14 @@ const Home: NextPage = ({blogs}) => {
           </div>
       </div>
       <div className={styles.blogs}>
-        {blogs.map(blog => (
-          <div key={blog.id} className={styles.blog}>
-            <div className={styles.blog_title}>{blog.id}</div>
+        {blogs.map(blog =>
+        
+         
+        (
+          
+          <div key={blog.node.id} className={styles.blog}>
+            <div className={styles.blog_title}>Blog Title<span> #{getTagsValue("Blog-name", blog.node.tags)}</span></div>
+            <div className={styles.blog_details}>@{getTagsValue("Blog-username", blog.node.tags)} <Link href={`/blog/${blog.node.id}`} ><a >Read More</a></Link></div>
           </div>
 
         ))}

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import styles from '../styles/blog.module.sass'
+import styles from '../../styles/blog.module.sass'
 import Link from 'next/link'
 
 const blog: NextPage = () => {
