@@ -2,6 +2,11 @@ import type { NextPage } from 'next'
 import styles from '../../styles/blog.module.sass'
 import Link from 'next/link'
 import { run } from 'ar-gql'
+import Arweave from 'arweave';
+
+
+
+
 
 const getTagsValue = (name: string, tags ) => {
     return tags.find(tag => tag.name === name).value
@@ -9,7 +14,16 @@ const getTagsValue = (name: string, tags ) => {
   }
 
 export const getStaticProps = async ({params:{id}}) => {
-    const data = await run(
+    const arweave = Arweave.init({
+        host: 'arweave.net',
+        port: 443,
+        protocol: 'https'
+      });
+    const data = await arweave.transactions.getData(id, {decode: true, string: true})
+    const blogData = await run(
+    
+    
+
 `        query {
             transaction(id: "${id}") {
               id
@@ -23,7 +37,8 @@ export const getStaticProps = async ({params:{id}}) => {
 
 
     return  {
-        props: {blog: data.data.transaction}
+        props: {data, blog: blogData.data.transaction}
+
     }
 }
 
@@ -35,12 +50,14 @@ export async function getStaticPaths() {
     }
 }
 
-const blog: NextPage = ({blog}) => {
+
+const blog: NextPage = ({blog, data}) => {
 
 
 
     return (
         <>
+        {console.log(blog)}
             <div className={styles.page}>
                 <div className={styles.navbar}>
                     <img src="/logo.png" alt="logo" />
@@ -58,7 +75,9 @@ const blog: NextPage = ({blog}) => {
                         <img src="/profile.png" alt="profile" />
                         <p>@{getTagsValue("Blog-username", blog.tags)}</p>
                         
+                        
                         </div>
+                        <p>{data}</p>
                 </div>
             </div>
         </>

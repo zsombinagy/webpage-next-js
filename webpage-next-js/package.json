@@ -11,7 +11,7 @@
   "dependencies": {
     "@apollo/client": "^3.4.16",
     "ar-gql": "0.0.6",
-    "arweave": "^1.10.17",
+    "arweave": "^1.10.18",
     "graphql": "^15.6.1",
     "next": "11.1.2",
     "react": "17.0.2",
